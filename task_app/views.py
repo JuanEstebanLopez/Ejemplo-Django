@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-# Create your views here.
+def schedulerView(request):
+    data = {}
+    return render(request, 'scheduler.html', data)
+
+def checkTask(request, id, week=""):
+    rUrl = '/#' + week if week != "" else '/'
+    return redirect(rUrl)
