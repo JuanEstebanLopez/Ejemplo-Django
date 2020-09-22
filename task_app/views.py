@@ -5,6 +5,7 @@ from functools import reduce
 from django.utils.dateformat import DateFormat
 from django.utils import timezone
 from django.utils.formats import get_format
+from .forms import CategoryForm, TaskForm
 
 from .models import Task, Category
 
@@ -117,6 +118,11 @@ def schedulerView(request):
     summary["lost"] = Task.objects.filter(date__lt=iDate).filter(complete=False).count()
     data["summary"] = summary
 
+    data["forms"] = {
+        "newTask": TaskForm(),
+        "newCategory": CategoryForm()
+    }
+
     data["categories"] = Category.objects.all()
     return render(request, 'scheduler.html', data)
 
@@ -134,3 +140,17 @@ def checkTask(request, id, week=""):
     task.save()
     rUrl = '/#' + week if week != "" else '/'
     return redirect(rUrl)
+
+def newTask(request):
+    if request.method == "POST": 
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("/")
+
+def newCategory(request):
+    if request.method == "POST": 
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+    return redirect("/")
