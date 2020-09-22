@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scheduler</title>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block css %} {% endblock css %}
+  </head>
+  <body>
+    {% block line_css %}
+    {% endblock line_css %}
+    <div class="content">
+        <div class="nav">{% block title %}<h2>Prueba Django</h2>{% endblock title %}</div>
+        <div class="side">
+            {%block side %} {% endblock side %}      
+        </div>
+        {%block content %} {% endblock content %} 
+        </div>
+
+       
+       
+       <script src="{% static 'js/main.js' %}"></script>
+      {% block js %} {% endblock js %}
+  </body>
+</html>

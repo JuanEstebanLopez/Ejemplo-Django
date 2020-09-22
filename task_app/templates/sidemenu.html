@@ -1,0 +1,64 @@
+<div class="sticky">
+    <div class="side-card summary-tasks">
+      <div class="title" onclick="showHideSideCard(this)">Resumen</div>
+      <div class="flex summary-items card-content">
+        <div class="summary-item">
+          <b>{{summary.pending}}</b>
+          <span>Pendientes</span>
+        </div>
+        <div class="summary-item">
+          <b>{{summary.complete}}</b>
+          <span>Completas</span>
+        </div>
+        <div class="summary-item">
+          <b>{{summary.lost}}</b>
+          <span>Perdidas</span>
+        </div>
+      </div>
+    </div>
+    <div class="side-card create-task" id="create-task">
+      <div class="title" onclick="showHideSideCard(this)">
+        Nueva Tarea
+      </div>
+      <form action="{% url 'new_task' %}" method="POST" class="card-content">
+        {% csrf_token %}
+        {{ forms.newTask.as_p }}
+        <br />
+        <input type="submit" value="CREAR" />
+      </form>
+    </div>
+
+    <div class="side-card create-category">
+      <div class="title" onclick="showHideSideCard(this)">Categorías</div>
+      <div class="card-content">
+        <form action="{% url 'new_category' %}" method="POST">
+            {% csrf_token %}
+            {{ forms.newCategory.as_p }}
+            <p class="text-min">
+                <a href="https://material.io/resources/icons/?style=baseline" target="_blank"  rel="noreferrer noopener">Ver íconos <i class="material-icons">
+                    search
+                    </i></a>
+            </p>
+            
+          <input type="submit" value="CREAR" />
+        </form>
+        
+        {% for category in categories %}
+        <hr width="90%" />
+        <div class="category-info" style="color:{{ category.color }};">
+          <div class="flex category-items">
+            <b class="category-name">{{ category.name }}: </b>
+            <div class="category-item">
+              <b class="material-icons">{{ category.icon }}</b>
+              <span>Completo</span>
+            </div>
+            <div class="category-item">
+              <b class="material-icons-outlined">{{ category.icon }}</b>
+              <span>Pendiente</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>

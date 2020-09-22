@@ -1,0 +1,26 @@
+<div class="task">
+<span class="material-icons{%if not task.complete %}-outlined{% endif %}" style="color:{{ task.htmlInfo.color }};"> {{task.htmlInfo.icon}} </span>
+    <div class="task-info">
+        <div class="title flex" style="color:{{ task.htmlInfo.color }};">
+      <b class="title">{{task.title}}</b>
+      <a href="{% url 'check_task' id=task.id week=week %}">
+      
+        <i class="task-check material-icons">
+        
+        {% if task.complete %} 
+        check_box
+        {% else %}
+        check_box_outline_blank
+        {% endif %}
+    </i>
+    </a>
+    </div>
+      <b class="category">{{task.category}}</b>
+      <br />
+      <b class="date">{{task.date}}</b>
+      <hr />
+      <p class="description">
+        {{task.description}}
+      </p>
+    </div>
+  </div>

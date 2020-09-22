@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %} <div class="title flex"><h2>Horario</h2> <span>{{datetext}}</span></div>{% endblock title %}
+
+{% block line_css %}
+<style>
+    {% for h in hours %}.content .scheluder .hour.h{{h.h}} {
+        grid-column-start: {{h.i}};
+      }
+    {% endfor %}
+</style>
+{% endblock line_css %}
+
+{%block side %} {% include "sidemenu.html" with summary=summary forms=forms categories=categories %} {% endblock side %}
+
+{% block content %}
+<div class="scheluder shadow">
+    <div class="hours-info gradient-color">
+      {% include "skyimages.html" %}
+    </div>
+    <div class="hour-name hour h00">00:00</div>
+    <div class="hour-name hour h06">06:00</div>
+    <div class="hour-name hour h12">12:00</div>
+    <div class="hour-name hour h18">18:00</div>
+    <div class="hour-name hour h23">23:00</div>
+    
+
+    {% for w in weeks.values %}
+    <div class="hr-w"></div>
+    <div class="week" id="{{w.id}}"><span>{{w.name}}</span></div>
+      {% for d in w.week.values %}
+      <div class="day"><b>{{d.name}}</b><br><span>{{d.date}}</span></div>
+      {% for h, tasks in d.hours.items %}
+      <div class="hour {{ h }}">
+        {% for t in tasks %}
+          {% include "task.html" with task=t week=w.id %}
+        {% endfor %}
+      </div>
+      {% endfor %}
+      <div class="hr-d"></div>
+      {% endfor %}
+    {% endfor %}
+
+  </div>
+{% endblock content %}
